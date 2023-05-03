@@ -1,57 +1,50 @@
-//package Q2;
-//
-//import java.util.List;
-//import java.util.Locale;
-//import java.util.Optional;
-//
-//public class Main {
-//
-//    public static void main(String[] args) {
-//
-//        /*
-//        Le but d'une lambda est d'écrire du code plus compréhensible, lisible et concis. Elle permet d'éviter l'utilisation de méthode dans
-//        une classe pour quelque chose que l'on appel qu'une seule fois. Dans cet exemple, la lambda joue le rôle de la méthode
-//        CountryLengthCalculator en simplifia,t l'écriture.
-//        Le but d'une interface fonctonnelle est de n'avoir qu'une méthode, et cette méthode ne doit pas avoir d'implémentation.
-//        Elles permettent de travailler seulement avec des expressions lambda ce qui peut être pratique dans beaucoup de cas.
-//         */
-//        Q2.LengthCalculator cityLengthCalculator = new Q2.CityLengthCalculator();
-//        int cityLength = cityLengthCalculator.calculate("Paris");
-//        System.out.println(cityLength);
-//
-//        Q2.LengthCalculator regionLengthCalculator = new LengthCalculator() {
-//
-//            @Override
-//            public int calculate(String word) {
-//                return word.length();
-//            }
-//        };
-//
-//        int regionLength = regionLengthCalculator.calculate("Bretagne");
-//        System.out.println(regionLength);
-//
-//
-//        LengthCalculator cityLengthCalculator = (String city) -> {return city.length();};
-//        int cityLength = cityLengthCalculator.calculate("Vanves");
-//        System.out.println(cityLength);
-//
-//        LengthCalculator cityLengthCalculator2 = city -> {return city.length();};
-//        int cityLength2 = cityLengthCalculator2.calculate("Pau");
-//        System.out.println(cityLength2);
-//
-//        LengthCalculator cityLengthCalculator3 = city -> city.length();
-//        int cityLength3 = cityLengthCalculator3.calculate("Saint-Georges d'Oléron");
-//        System.out.println(cityLength3);
-//
-//        LengthCalculator cityLengthCalculator4 = String::length;
-//        int cityLength4 = cityLengthCalculator4.calculate("Paris");
-//        System.out.println(cityLength4);
-//
-//        List<String> cities = List.of("Vanves", "Pau", "Paris", "Saint-Georges d'Oléron");
-//        Optional<String> startingWithVa = cities.stream()
-//                .filter(city -> city.toLowerCase().startsWith("va"))
-//                .findFirst();
-//        System.out.println(startingWithVa.orElse("Aucune ville"));
-//
-//    }
-//}
+package Q2;
+
+import q2.LastNameLengthCalculator;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+
+public class Main {
+    /*
+En Java, une lambda expression est une manière concise de définir une fonction anonyme qui peut être utilisée à la place
+d'une classe anonyme. Elle est utilisée pour définir des instances de types fonctionnels, qui sont des types d'interface
+ayant une seule méthode abstraite, appelées "interfaces fonctionnelles". Les lambdas permettent de passer des fonctions
+comme arguments, de retourner des fonctions en tant que résultats, ou d'assigner des fonctions à des variables.
+
+Une "functional interface" est une interface Java qui possède une seule méthode abstraite (ou non-définie), et qui est
+conçue pour être implémentée par une classe qui fournira une implémentation pour cette méthode. Les interfaces fonctionnelles
+permettent d'exprimer des comportements fonctionnels de manière concise, en utilisant des lambdas, des références de méthodes ou des classes anonymes.
+
+Les lambdas sont souvent utilisées avec des interfaces fonctionnelles pour simplifier la syntaxe du code et rendre le code
+plus lisible et plus maintenable. L'utilisation de ces deux concepts permet de faciliter la programmation orientée
+fonctionnelle en Java, qui consiste à utiliser des fonctions plutôt que des objets pour effectuer des opérations.
+    */
+    public static void main(String[] args) {
+        String lastName = "Maximilien Absolut";
+        Q2.LengthCalculator lastNameLengthCalculator = new LastNameLengthCalculator();
+        int lastNameLength = lastNameLengthCalculator.calculate(lastName);
+        System.out.println("Last name length: " + lastNameLength);
+
+        Q2.LengthCalculator firstNameLengthCalculator = input -> input.split(" ")[0].length();
+        int firstNameLength = firstNameLengthCalculator.calculate(lastName);
+        System.out.println("First name length: " + firstNameLength);
+
+        Q2.LengthCalculator cityLengthCalculator = (String input) -> input.length();
+        int cityLength1 = cityLengthCalculator.calculate("Suresnes");
+        System.out.println("City length (1ere syntaxe): " + cityLength1);
+
+        Q2.LengthCalculator cityLengthCalculator2 = input -> {
+            return input.length();
+        };
+        int cityLength2 = cityLengthCalculator2.calculate("La Grenne Colombes");
+        System.out.println("City length (2eme syntaxe): " + cityLength2);
+
+        Q2.LengthCalculator cityLengthCalculator3 = (String input) -> {
+            return input.length();
+        };
+        int cityLength3 = cityLengthCalculator3.calculate("Courbevoie");
+        System.out.println("City length (3eme syntaxe): " + cityLength3);
+    }
+}
